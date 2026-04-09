@@ -186,6 +186,29 @@
         .buy:hover {
             background: darkred;
         }
+        .desc-box {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .desc-box h4 {
+            margin: 0 0 5px;
+            color: #333;
+        }
+
+        .desc-box p {
+            color: #555;
+            line-height: 1.5;
+        }
+        .desc-box {
+            max-height: 120px;
+            overflow-y: auto;
+        }
+        .desc-box {
+            border-left: 4px solid #3498db;
+        }
     </style>
     <body>
 
@@ -216,7 +239,10 @@
 
                     <p><b>Số lượng:</b> <%= sp.getSoLuong()%></p>
 
-                    <p class="desc"><%= sp.getMoTa()%></p>
+                    <div class="desc-box">
+                        <h4>📝 Mô tả sản phẩm</h4>
+                        <p><%= sp.getMoTa() != null ? sp.getMoTa() : "Chưa có mô tả"%></p>
+                    </div>
 
                     <form action="CartServlet" method="post" class="form-cart">
                         <input type="hidden" name="maSP" value="<%= sp.getMaSP()%>">
