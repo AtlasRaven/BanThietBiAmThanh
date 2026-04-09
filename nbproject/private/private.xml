@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/controller/SuaSanPhamServlet.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/controller/RegisterServlet.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/model/KhachHangDao.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/web/login.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/controller/LoginServlet.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/web/SuaSanPham.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/model/DonHang.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/web/Register.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/controller/InsertSanPham.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/model/NhanVienDao.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/model/NhanVien.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/controller/ChiTietSanPham.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/web/ThongTinCaNhanKhachHang.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/model/SanPhamDao.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/controller/LogoutServlet.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/controller/KhachHangServlet.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/model/KhachHang.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/web/ThongTinNhanVien.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/web/SanPham.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/controller/NhanVienServlet.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/model/ChiTietDonHang.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/controller/XoaSanPhamServlet.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/web/ChiTietSanPham.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/model/KetNoiCSDL.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/web/index.html</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/model/SanPham.java</file>
+        </group>
+    </open-files>
+</project-private>
