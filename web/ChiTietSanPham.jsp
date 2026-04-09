@@ -244,7 +244,7 @@
                         <p><%= sp.getMoTa() != null ? sp.getMoTa() : "Chưa có mô tả"%></p>
                     </div>
 
-                    <form action="CartServlet" method="post" class="form-cart">
+                    <form action="CartServlet" method="get" class="form-cart">
                         <input type="hidden" name="maSP" value="<%= sp.getMaSP()%>">
 
                         <label>Số lượng:</label>
@@ -255,7 +255,9 @@
                                 Thêm vào giỏ
                             </button>
 
-                            <button type="submit" name="action" value="buy" class="btn buy">
+                            <button type="submit" name="action" value="buy" 
+                                    class="btn buy"
+                                    onclick="return confirmBuy()">
                                 Mua ngay
                             </button>
                         </div>
@@ -267,6 +269,10 @@
             </div>
 
         </div>
-
+        <script>
+            function confirmBuy() {
+                return confirm("Bạn có chắc muốn mua sản phẩm này không?");
+            }
+        </script>
     </body>
 </html>
