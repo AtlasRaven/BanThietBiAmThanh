@@ -245,24 +245,27 @@
                     </div>
 
                     <form action="CartServlet" method="get" class="form-cart">
+
                         <input type="hidden" name="maSP" value="<%= sp.getMaSP()%>">
 
                         <label>Số lượng:</label>
                         <input type="number" name="soLuong" value="1" min="1">
 
                         <div class="btn-group">
+                            <!-- THÊM GIỎ -->
                             <button type="submit" name="action" value="add" class="btn add">
-                                Thêm vào giỏ
+                                🛒 Thêm vào giỏ
                             </button>
 
-                            <button type="submit" name="action" value="buy" 
+                            <!-- MUA NGAY -->
+                            <button type="submit" name="action" value="buy"
                                     class="btn buy"
                                     onclick="return confirmBuy()">
                                 Mua ngay
                             </button>
                         </div>
-                    </form>
 
+                    </form>
                     <a href="InsertSanPham" class="btn-back">← Quay lại</a>
                 </div>
 

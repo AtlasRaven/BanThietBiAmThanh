@@ -147,6 +147,7 @@
             <a href="CartServlet?action=print" class="btn-back">
                 🖨️ Xuất hóa đơn
             </a>
+            <a href ="InsertSanPham "class="btn-back">Quay Lại</a>
         </div>
 
     </body>

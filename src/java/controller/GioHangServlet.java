@@ -13,18 +13,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import model.SanPham;
-import model.SanPhamDao;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "CartServlet", urlPatterns = {"/CartServlet"})
-public class CartServlet extends HttpServlet {
+@WebServlet(name = "GioHangServlet", urlPatterns = {"/GioHangServlet"})
+public class GioHangServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +40,10 @@ public class CartServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CartServlet</title>");
+            out.println("<title>Servlet GioHangServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CartServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet GioHangServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,23 +59,23 @@ public class CartServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        String maSP = request.getParameter("maSP");
-
         HttpSession session = request.getSession();
+        String action = request.getParameter("action");
 
-        // ✅ DÙNG LIST
         List<SanPham> cart = (List<SanPham>) session.getAttribute("cart");
 
         if (cart == null) {
             cart = new ArrayList<>();
         }
 
-        // ➕ THÊM GIỎ
+        // ================= ADD =================
         if ("add".equals(action)) {
+
+            String maSP = request.getParameter("maSP");
+            String tenSP = request.getParameter("tenSP");
+            double gia = Double.parseDouble(request.getParameter("gia"));
             int soLuong = Integer.parseInt(request.getParameter("soLuong"));
 
             boolean exists = false;
@@ -92,39 +89,51 @@ public class CartServlet extends HttpServlet {
             }
 
             if (!exists) {
-                SanPhamDao dao = new SanPhamDao();
-                SanPham sp = dao.getById(maSP);
-
-                if (sp != null) {
-                    sp.setSoLuong(soLuong);
-                    cart.add(sp);
-                }
-            }
-
-            session.setAttribute("cart", cart);
-            response.sendRedirect("GioHang.jsp");
-            return;
-        }
-
-        // ⚡ MUA NGAY
-        if ("buy".equals(action)) {
-
-            cart.clear();
-
-            SanPhamDao dao = new SanPhamDao();
-            SanPham sp = dao.getById(maSP);
-
-            if (sp != null) {
-                sp.setSoLuong(1);
+                SanPham sp = new SanPham();
+                sp.setMaSP(maSP);
+                sp.setTenSP(tenSP);
+                sp.setDonGia(gia);
+                sp.setSoLuong(soLuong);
                 cart.add(sp);
             }
 
-            session.setAttribute("cart", cart);
-            response.sendRedirect("CartServlet?action=checkout");
+            response.sendRedirect("InsertSanPham");
             return;
         }
-        if ("update".equals(action)) {
 
+        // ================= BUY =================
+        if ("buy".equals(action)) {
+
+            String maSP = request.getParameter("maSP");
+            String tenSP = request.getParameter("tenSP");
+            double gia = Double.parseDouble(request.getParameter("gia"));
+            int soLuong = Integer.parseInt(request.getParameter("soLuong"));
+
+            cart.clear();
+
+            SanPham sp = new SanPham();
+            sp.setMaSP(maSP);
+            sp.setTenSP(tenSP);
+            sp.setDonGia(gia);
+            sp.setSoLuong(soLuong);
+
+            cart.add(sp);
+
+            session.setAttribute("cart", cart);
+            response.sendRedirect("GioHangServlet");
+            return;
+        }
+
+        // ================= REMOVE =================
+        if ("remove".equals(action)) {
+            String maSP = request.getParameter("maSP");
+
+            cart.removeIf(sp -> sp.getMaSP().equals(maSP));
+        }
+
+        // ================= UPDATE =================
+        if ("update".equals(action)) {
+            String maSP = request.getParameter("maSP");
             int soLuong = Integer.parseInt(request.getParameter("soLuong"));
 
             for (SanPham sp : cart) {
@@ -132,41 +141,27 @@ public class CartServlet extends HttpServlet {
                     sp.setSoLuong(soLuong);
                 }
             }
-
-            session.setAttribute("cart", cart);
-            response.sendRedirect("GioHang.jsp");
-            return;
-        }
-        // ❌ XÓA
-        if ("remove".equals(action)) {
-
-            cart.removeIf(sp -> sp.getMaSP().equals(maSP));
-
-            session.setAttribute("cart", cart);
-            response.sendRedirect("GioHang.jsp");
-            return;
         }
 
-        // 🧾 THANH TOÁN
-        if ("checkout".equals(action) || "print".equals(action)) {
+        // ================= TÍNH TỔNG =================
+        double tongTien = 0;
+        int totalQuantity = 0;
 
-            double tongTien = 0;
-
-            for (SanPham sp : cart) {
-                tongTien += sp.getDonGia() * sp.getSoLuong();
-            }
-
-            String maDH = "DH" + System.currentTimeMillis();
-
-            request.setAttribute("maDH", maDH);
-            request.setAttribute("list", cart);
-            request.setAttribute("tongTien", tongTien);
-
-            request.getRequestDispatcher("HoaDon.jsp").forward(request, response);
-            return;
+        for (SanPham sp : cart) {
+            tongTien += sp.getDonGia() * sp.getSoLuong();
+            totalQuantity += sp.getSoLuong();
         }
 
-        response.sendRedirect("InsertSanPham");
+        // ================= LƯU SESSION =================
+        session.setAttribute("cart", cart);
+        session.setAttribute("cartSize", totalQuantity);
+        session.setAttribute("tongTien", tongTien);
+
+        // ================= GỬI JSP =================
+        request.setAttribute("cart", cart);
+        request.setAttribute("tongTien", tongTien);
+
+        request.getRequestDispatcher("GioHang.jsp").forward(request, response);
     }
 
     /**
@@ -180,7 +175,7 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        processRequest(request, response);
     }
 
     /**
