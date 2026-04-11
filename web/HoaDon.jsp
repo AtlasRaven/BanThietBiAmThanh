@@ -143,7 +143,7 @@
                 Tổng tiền: <%= (tongTien != null ? String.format("%,.0f", tongTien) : "0")%> VNĐ
             </div>
 
-            <a href="InsertSanPham" class="btn-back">← Mua tiếp</a>
+            
             <a href="CartServlet?action=print" class="btn-back">
                 🖨️ Xuất hóa đơn
             </a>

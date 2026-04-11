@@ -19,6 +19,7 @@
             <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/model/NhanVien.java</file>
             <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/controller/ChiTietSanPham.java</file>
             <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/controller/HoaDonServlet.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/controller/GioHangServlet.java</file>
             <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/web/ThongTinCaNhanKhachHang.jsp</file>
             <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/controller/CartServlet.java</file>
             <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/web/HoaDon.jsp</file>
@@ -41,6 +42,7 @@
             <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/web/index.html</file>
             <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/src/java/model/SanPham.java</file>
             <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/web/InHoaDon.jsp</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/THLT_WEB/projectDung_And_Hung/web/META-INF/context.xml</file>
         </group>
     </open-files>
 </project-private>
