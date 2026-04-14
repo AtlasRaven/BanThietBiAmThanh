@@ -62,8 +62,10 @@ public class InsertSanPham extends HttpServlet {
             throws ServletException, IOException {
             SanPhamDao data = new SanPhamDao();
             List<SanPham> ListSP = data.getAll();
-             request.setAttribute("ListSP", ListSP);
-         request.getRequestDispatcher("SanPham.jsp").forward(request, response);
+            request.setAttribute("ListSP", ListSP);
+            request.setAttribute("categoryList", data.getAllCategories());
+            request.setAttribute("selectedCategory", "");
+            request.getRequestDispatcher("SanPham.jsp").forward(request, response);
     }
 
     /**

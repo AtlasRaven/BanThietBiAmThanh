@@ -5,6 +5,32 @@
 --%>
 <%@page import="model.SanPham"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%!
+    private String getImageFallback() {
+        return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='520'%3E%3Crect width='100%25' height='100%25' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2364748b' font-size='30' font-family='Arial'%3ENo Image%3C/text%3E%3C/svg%3E";
+    }
+
+    private String resolveImagePath(String hinhAnh, String contextPath) {
+        if (hinhAnh == null || hinhAnh.trim().isEmpty()) {
+            return getImageFallback();
+        }
+
+        String value = hinhAnh.trim().replace("\\", "/");
+        if (value.startsWith("http://") || value.startsWith("https://") || value.startsWith("data:")) {
+            return value;
+        }
+        if (value.startsWith("/")) {
+            return contextPath + value;
+        }
+        if (value.startsWith("images/")) {
+            return contextPath + "/" + value;
+        }
+        if (value.contains("/")) {
+            return contextPath + "/" + value;
+        }
+        return contextPath + "/images/" + value;
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -224,7 +250,9 @@
 
                 <!-- ẢNH -->
                 <div class="left">
-                    <img src="images/<%= sp.getHinhAnh()%>" class="product-img">
+                    <img src="<%= resolveImagePath(sp.getHinhAnh(), request.getContextPath())%>"
+                         onerror="this.onerror=null;this.src='<%= getImageFallback()%>';"
+                         class="product-img">
                 </div>
 
                 <!-- THÔNG TIN -->

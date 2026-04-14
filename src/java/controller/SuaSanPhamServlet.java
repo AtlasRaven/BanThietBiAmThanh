@@ -4,13 +4,16 @@
  */
 package controller;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.nio.file.Paths;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import model.SanPham;
 import model.SanPhamDao;
 
@@ -19,33 +22,12 @@ import model.SanPhamDao;
  * @author ASUS
  */
 @WebServlet(name = "SuaSanPhamServlet", urlPatterns = {"/SuaSanPhamServlet"})
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 10 * 1024 * 1024,
+        maxRequestSize = 30 * 1024 * 1024
+)
 public class SuaSanPhamServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SuaSanPhamServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SuaSanPhamServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -80,14 +62,29 @@ public class SuaSanPhamServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String maSP = request.getParameter("maSP");
+        request.setCharacterEncoding("UTF-8");
+
+        String maSP = request.getParameter("maSP");
         String ten = request.getParameter("ten");
         String loai = request.getParameter("loai");
         double gia = Double.parseDouble(request.getParameter("gia"));
         int sl = Integer.parseInt(request.getParameter("sl"));
         String mota = request.getParameter("mota");
+        String oldHinhAnh = request.getParameter("oldHinhAnh");
+        String hinhAnhText = request.getParameter("hinhAnh");
 
-        SanPham sp = new SanPham(maSP, ten, loai, gia, sl, mota, "");
+        Part imagePart = request.getPart("hinhAnhFile");
+        String uploadedFileName = saveImageIfExists(imagePart, request);
+        String finalHinhAnh;
+        if (!uploadedFileName.isEmpty()) {
+            finalHinhAnh = uploadedFileName;
+        } else if (hinhAnhText != null && !hinhAnhText.trim().isEmpty()) {
+            finalHinhAnh = hinhAnhText.trim();
+        } else {
+            finalHinhAnh = oldHinhAnh != null ? oldHinhAnh : "";
+        }
+
+        SanPham sp = new SanPham(maSP, ten, loai, gia, sl, mota, finalHinhAnh);
 
         SanPhamDao dao = new SanPhamDao();
         dao.update(sp);
@@ -105,4 +102,30 @@ public class SuaSanPhamServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private String saveImageIfExists(Part filePart, HttpServletRequest request) throws IOException {
+        if (filePart == null || filePart.getSize() == 0) {
+            return "";
+        }
+
+        String submittedName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        if (submittedName == null || submittedName.trim().isEmpty()) {
+            return "";
+        }
+
+        String extension = "";
+        int dotIndex = submittedName.lastIndexOf('.');
+        if (dotIndex >= 0) {
+            extension = submittedName.substring(dotIndex);
+        }
+        String storedName = "sp_" + System.currentTimeMillis() + extension;
+
+        String uploadPath = request.getServletContext().getRealPath("/images");
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+
+        filePart.write(new File(uploadDir, storedName).getAbsolutePath());
+        return storedName;
+    }
 }

@@ -4,11 +4,14 @@
  */
 package controller;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.nio.file.Paths;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.Part;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -20,33 +23,12 @@ import model.SanPhamDao;
  * @author ASUS
  */
 @WebServlet(name = "ThemSanPhamServlet", urlPatterns = {"/ThemSanPhamServlet"})
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 10 * 1024 * 1024,
+        maxRequestSize = 30 * 1024 * 1024
+)
 public class ThemSanPhamServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ThemSanPhamServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ThemSanPhamServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -106,6 +88,15 @@ public class ThemSanPhamServlet extends HttpServlet {
         String moTa = request.getParameter("moTa");
         String hinhAnh = request.getParameter("hinhAnh");
 
+        Part imagePart = request.getPart("hinhAnhFile");
+        String uploadedFileName = saveImageIfExists(imagePart, request);
+        if (!uploadedFileName.isEmpty()) {
+            hinhAnh = uploadedFileName;
+        }
+        if (hinhAnh == null) {
+            hinhAnh = "";
+        }
+
         // 📦 Tạo object
         SanPham sp = new SanPham(maSP, tenSP, phanLoai, donGia, soLuong, moTa, hinhAnh);
 
@@ -127,4 +118,30 @@ public class ThemSanPhamServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private String saveImageIfExists(Part filePart, HttpServletRequest request) throws IOException {
+        if (filePart == null || filePart.getSize() == 0) {
+            return "";
+        }
+
+        String submittedName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        if (submittedName == null || submittedName.trim().isEmpty()) {
+            return "";
+        }
+
+        String extension = "";
+        int dotIndex = submittedName.lastIndexOf('.');
+        if (dotIndex >= 0) {
+            extension = submittedName.substring(dotIndex);
+        }
+        String storedName = "sp_" + System.currentTimeMillis() + extension;
+
+        String uploadPath = request.getServletContext().getRealPath("/images");
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+
+        filePart.write(new File(uploadDir, storedName).getAbsolutePath());
+        return storedName;
+    }
 }

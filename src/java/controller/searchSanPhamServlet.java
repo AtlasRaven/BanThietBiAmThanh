@@ -66,6 +66,7 @@ public class searchSanPhamServlet extends HttpServlet {
         String minStr = request.getParameter("minPrice");
         String maxStr = request.getParameter("maxPrice");
         String sort = request.getParameter("sort");
+        String category = request.getParameter("category");
 
         Double min = null;
         Double max = null;
@@ -82,13 +83,15 @@ public class searchSanPhamServlet extends HttpServlet {
         }
 
         SanPhamDao dao = new SanPhamDao();
-        List<SanPham> list = dao.searchAdvanced(keyword, min, max, sort);
+        List<SanPham> list = dao.searchAdvanced(keyword, min, max, sort, category);
 
 // giữ lại dữ liệu search (rất quan trọng cho UX)
         request.setAttribute("keyword", keyword);
         request.setAttribute("minPrice", minStr);
         request.setAttribute("maxPrice", maxStr);
         request.setAttribute("sort", sort);
+        request.setAttribute("selectedCategory", category);
+        request.setAttribute("categoryList", dao.getAllCategories());
 
         request.setAttribute("ListSP", list);
         request.getRequestDispatcher("SanPham.jsp").forward(request, response);

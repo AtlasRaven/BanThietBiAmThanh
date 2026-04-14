@@ -80,7 +80,7 @@
         <div class="form-container">
             <h2>➕ Thêm sản phẩm</h2>
 
-            <form action="ThemSanPhamServlet" method="post">
+            <form action="ThemSanPhamServlet" method="post" enctype="multipart/form-data">
 
                 <label>Mã SP</label>
                 <input type="text" name="maSP" required>
@@ -100,8 +100,11 @@
                 <label>Mô tả</label>
                 <textarea name="moTa"></textarea>
 
-                <label>Hình ảnh (tên file)</label>
-                <input type="text" name="hinhAnh">
+                <label>Hình ảnh (upload file)</label>
+                <input type="file" name="hinhAnhFile" accept="image/*">
+
+                <label>Hoặc nhập đường dẫn/tên file ảnh</label>
+                <input type="text" name="hinhAnh" placeholder="vd: loa.jpg hoặc images/loa.jpg">
 
                 <button type="submit" class="btn-submit">Thêm sản phẩm</button>
             </form>

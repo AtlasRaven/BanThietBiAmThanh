@@ -101,75 +101,95 @@ public class SanPhamDao extends KetNoiCSDL {
     }
 
     // 🔹 5. TÌM KIẾM (SEARCH theo tên)
-  public List<SanPham> searchAdvanced(String keyword, Double min, Double max, String sort) {
-    List<SanPham> list = new ArrayList<>();
-
-    StringBuilder sql = new StringBuilder("SELECT * FROM SanPham WHERE 1=1");
-
-    // keyword
-    if (keyword != null && !keyword.trim().isEmpty()) {
-        sql.append(" AND (LOWER(MaSP) LIKE ? OR LOWER(TenSP) LIKE ?)");
+    public List<SanPham> searchAdvanced(String keyword, Double min, Double max, String sort) {
+        return searchAdvanced(keyword, min, max, sort, null);
     }
 
-    // giá
-    if (min != null) {
-        sql.append(" AND DonGia >= ?");
-    }
+    public List<SanPham> searchAdvanced(String keyword, Double min, Double max, String sort, String category) {
+        List<SanPham> list = new ArrayList<>();
 
-    if (max != null) {
-        sql.append(" AND DonGia <= ?");
-    }
+        StringBuilder sql = new StringBuilder("SELECT * FROM SanPham WHERE 1=1");
 
-    // sort
-    if ("asc".equals(sort)) {
-        sql.append(" ORDER BY DonGia ASC");
-    } else if ("desc".equals(sort)) {
-        sql.append(" ORDER BY DonGia DESC");
-    }
-
-    try {
-        Connection conn = db.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql.toString());
-
-        int index = 1;
-
-        // keyword
         if (keyword != null && !keyword.trim().isEmpty()) {
-            String key = "%" + keyword.toLowerCase() + "%";
-            ps.setString(index++, key);
-            ps.setString(index++, key);
+            sql.append(" AND (LOWER(MaSP) LIKE ? OR LOWER(TenSP) LIKE ? OR LOWER(PhanLoai) LIKE ?)");
         }
 
-        // giá
+        if (category != null && !category.trim().isEmpty()) {
+            sql.append(" AND LOWER(PhanLoai) = ?");
+        }
+
         if (min != null) {
-            ps.setDouble(index++, min);
+            sql.append(" AND DonGia >= ?");
         }
 
         if (max != null) {
-            ps.setDouble(index++, max);
+            sql.append(" AND DonGia <= ?");
         }
 
-        ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
-            SanPham sp = new SanPham(
-                    rs.getString("MaSP"),
-                    rs.getString("TenSP"),
-                    rs.getString("PhanLoai"),
-                    rs.getDouble("DonGia"),
-                    rs.getInt("SoLuong"),
-                    rs.getString("MoTa"),
-                    rs.getString("HinhAnh")
-            );
-            list.add(sp);
+        if ("asc".equals(sort)) {
+            sql.append(" ORDER BY DonGia ASC");
+        } else if ("desc".equals(sort)) {
+            sql.append(" ORDER BY DonGia DESC");
         }
 
-    } catch (Exception e) {
-        e.printStackTrace();
+        try {
+            Connection conn = db.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql.toString());
+
+            int index = 1;
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                String key = "%" + keyword.toLowerCase() + "%";
+                ps.setString(index++, key);
+                ps.setString(index++, key);
+                ps.setString(index++, key);
+            }
+
+            if (category != null && !category.trim().isEmpty()) {
+                ps.setString(index++, category.trim().toLowerCase());
+            }
+
+            if (min != null) {
+                ps.setDouble(index++, min);
+            }
+
+            if (max != null) {
+                ps.setDouble(index++, max);
+            }
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                SanPham sp = new SanPham(
+                        rs.getString("MaSP"),
+                        rs.getString("TenSP"),
+                        rs.getString("PhanLoai"),
+                        rs.getDouble("DonGia"),
+                        rs.getInt("SoLuong"),
+                        rs.getString("MoTa"),
+                        rs.getString("HinhAnh")
+                );
+                list.add(sp);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
-    return list;
-}
+    public List<String> getAllCategories() {
+        List<String> categories = new ArrayList<>();
+        String sql = "SELECT DISTINCT PhanLoai FROM SanPham WHERE PhanLoai IS NOT NULL AND TRIM(PhanLoai) <> '' ORDER BY PhanLoai";
+        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                categories.add(rs.getString("PhanLoai"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return categories;
+    }
 
     public SanPham getById(String maSP) {
         String sql = "SELECT * FROM SanPham WHERE MaSP = ?";

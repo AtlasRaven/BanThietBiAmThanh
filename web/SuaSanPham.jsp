@@ -3,6 +3,13 @@
 
 <%
     SanPham sp = (SanPham) request.getAttribute("sp");
+    String currentImage = sp != null && sp.getHinhAnh() != null ? sp.getHinhAnh() : "";
+    String previewSrc = "images/" + currentImage;
+    if (currentImage.startsWith("http://") || currentImage.startsWith("https://") || currentImage.startsWith("data:")) {
+        previewSrc = currentImage;
+    } else if (currentImage.startsWith("images/")) {
+        previewSrc = currentImage;
+    }
 %>
 
 <!DOCTYPE html>
@@ -103,8 +110,9 @@
 <div class="container">
     <h2>Sửa sản phẩm</h2>
 
-    <form action="SuaSanPhamServlet" method="post">
+    <form action="SuaSanPhamServlet" method="post" enctype="multipart/form-data">
         <input type="hidden" name="maSP" value="<%= sp.getMaSP() %>">
+        <input type="hidden" name="oldHinhAnh" value="<%= currentImage %>">
 
         <label>Tên sản phẩm</label>
         <input name="ten" value="<%= sp.getTenSP() %>">
@@ -120,6 +128,14 @@
 
         <label>Mô tả</label>
         <input name="mota" value="<%= sp.getMoTa() %>">
+
+        <label>Ảnh hiện tại</label>
+        <input name="hinhAnh" value="<%= currentImage %>">
+        <img src="<%= previewSrc %>" alt="preview" style="margin-top:8px;width:100%;max-height:180px;object-fit:cover;border-radius:8px;border:1px solid #ddd;"
+             onerror="this.style.display='none';">
+
+        <label>Chọn ảnh mới (nếu muốn thay)</label>
+        <input type="file" name="hinhAnhFile" accept="image/*">
 
         <button type="submit" class="btn-submit">Cập nhật</button>
     </form>

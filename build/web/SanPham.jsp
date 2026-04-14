@@ -1,7 +1,34 @@
 <%@page import="java.util.List"%>
+<%@page import="java.net.URLEncoder"%>
 <%@page import="model.SanPham"%>
 <%@page import="model.NhanVien"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%!
+    private String getImageFallback() {
+        return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='360'%3E%3Crect width='100%25' height='100%25' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2364748b' font-size='26' font-family='Arial'%3ENo Image%3C/text%3E%3C/svg%3E";
+    }
+
+    private String resolveImagePath(String hinhAnh, String contextPath) {
+        if (hinhAnh == null || hinhAnh.trim().isEmpty()) {
+            return getImageFallback();
+        }
+
+        String value = hinhAnh.trim().replace("\\", "/");
+        if (value.startsWith("http://") || value.startsWith("https://") || value.startsWith("data:")) {
+            return value;
+        }
+        if (value.startsWith("/")) {
+            return contextPath + value;
+        }
+        if (value.startsWith("images/")) {
+            return contextPath + "/" + value;
+        }
+        if (value.contains("/")) {
+            return contextPath + "/" + value;
+        }
+        return contextPath + "/images/" + value;
+    }
+%>
 
 <!DOCTYPE html>
 <html>
@@ -512,6 +539,42 @@
             .contact-wrapper:hover .contact-box {
                 display: block;
             }
+            .category-wrapper {
+                position: relative;
+                display: inline-block;
+            }
+
+            .category-box {
+                display: none;
+                position: absolute;
+                top: 34px;
+                left: 0;
+                min-width: 220px;
+                max-height: 300px;
+                overflow-y: auto;
+                background: white;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+                z-index: 1000;
+                padding: 8px 0;
+            }
+
+            .category-wrapper:hover .category-box {
+                display: block;
+            }
+
+            .category-box a {
+                display: block;
+                padding: 8px 12px;
+                color: #334155;
+                text-decoration: none;
+                font-weight: 600;
+            }
+
+            .category-box a:hover {
+                background: #eef4ff;
+            }
             .cart {
                 background: white;
                 padding: 8px 15px;
@@ -617,6 +680,261 @@
                 padding: 3px 7px;
                 border-radius: 50%;
             }
+
+            /* ===== Modern UI Override (giu nguyen bo cuc) ===== */
+            :root {
+                --bg: #f3f6fb;
+                --surface: #ffffff;
+                --surface-soft: #f8faff;
+                --text: #152238;
+                --muted: #66758f;
+                --primary: #3b82f6;
+                --primary-dark: #1d4ed8;
+                --danger: #ef4444;
+                --success: #16a34a;
+                --border: #dbe4f0;
+                --shadow-sm: 0 6px 18px rgba(15, 23, 42, 0.08);
+                --shadow-md: 0 12px 30px rgba(15, 23, 42, 0.12);
+            }
+
+            body {
+                font-family: "Segoe UI", Roboto, Arial, sans-serif;
+                background: linear-gradient(180deg, #eef3ff 0%, var(--bg) 45%);
+                color: var(--text);
+            }
+
+            .header {
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+                background: rgba(17, 24, 39, 0.92);
+                backdrop-filter: blur(8px);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+                box-shadow: var(--shadow-sm);
+            }
+
+            .logo {
+                color: #fff;
+                font-weight: 700;
+                letter-spacing: 0.3px;
+            }
+
+            .search-wrapper {
+                background: rgba(255, 255, 255, 0.12);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 999px;
+            }
+
+            .search-box {
+                border-radius: 999px;
+                box-shadow: inset 0 0 0 1px #e2e8f0;
+            }
+
+            .search, .price-input, .sort-select {
+                color: #1f2937;
+            }
+
+            .btn-search {
+                background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+                border-radius: 999px;
+            }
+
+            .btn-search:hover {
+                background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+            }
+
+            .cart-icon a {
+                background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+                border-radius: 999px;
+            }
+
+            .menu {
+                position: sticky;
+                top: 74px;
+                z-index: 999;
+                background: rgba(30, 41, 59, 0.96);
+                backdrop-filter: blur(6px);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+                box-shadow: var(--shadow-sm);
+            }
+
+            .menu a {
+                color: #f8fafc;
+                padding: 8px 10px;
+                border-radius: 10px;
+                margin-right: 6px;
+                transition: 0.2s;
+            }
+
+            .menu a:hover {
+                background: rgba(255, 255, 255, 0.12);
+            }
+
+            .main {
+                width: min(1280px, 96%);
+                gap: 12px;
+                margin-top: 14px;
+            }
+
+            .sidebar {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow-sm);
+                position: sticky;
+                top: 130px;
+                height: fit-content;
+            }
+
+            .sidebar h3 {
+                margin-top: 2px;
+                font-size: 18px;
+            }
+
+            .sidebar li {
+                border-bottom: 1px solid #edf2f7;
+                border-radius: 10px;
+                color: #334155;
+            }
+
+            .sidebar li:hover {
+                background: #eef4ff;
+            }
+
+            .content {
+                margin-top: 15px;
+            }
+
+            .banner img {
+                border-radius: 16px;
+                box-shadow: var(--shadow-md);
+                border: 1px solid var(--border);
+            }
+
+            .top-bar {
+                display: flex;
+                justify-content: flex-end;
+                margin-bottom: 12px;
+            }
+
+            .btn-login, .dropbtn {
+                border-radius: 999px;
+                box-shadow: var(--shadow-sm);
+            }
+
+            .product-list {
+                gap: 18px;
+            }
+
+            .product-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                box-shadow: var(--shadow-sm);
+                overflow: hidden;
+            }
+
+            .product-card:hover {
+                transform: translateY(-6px);
+                box-shadow: var(--shadow-md);
+            }
+
+            .product-card img {
+                border-radius: 12px;
+                border: 1px solid #e6edf7;
+            }
+
+            .product-name {
+                font-size: 16px;
+                color: #0f172a;
+            }
+
+            .price {
+                color: var(--danger);
+            }
+
+            .desc {
+                color: var(--muted);
+            }
+
+            .btn-edit, .btn-delete, .btn-add, .btn-add-sidebar {
+                border-radius: 10px;
+                font-weight: 600;
+            }
+
+            .btn-add-sidebar {
+                background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            }
+
+            .contact-box {
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                box-shadow: var(--shadow-md);
+            }
+
+            @media (max-width: 1100px) {
+                .product-list {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
+
+            @media (max-width: 900px) {
+                .main {
+                    flex-direction: column;
+                }
+
+                .sidebar {
+                    width: auto;
+                    position: static;
+                }
+
+                .menu {
+                    top: 66px;
+                    overflow-x: auto;
+                    white-space: nowrap;
+                }
+
+                .product-list {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media (max-width: 600px) {
+                .header {
+                    padding: 12px;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                }
+
+                .search-wrapper {
+                    width: 100%;
+                    border-radius: 16px;
+                    padding: 8px;
+                }
+
+                .search-box {
+                    flex-wrap: wrap;
+                    border-radius: 14px;
+                }
+
+                .price-input, .sort-select {
+                    width: calc(50% - 4px);
+                }
+
+                .product-list {
+                    grid-template-columns: 1fr;
+                }
+
+                .chat-widget-panel {
+                    width: calc(100vw - 20px);
+                    right: 10px;
+                    bottom: 72px;
+                }
+
+                .chat-widget-btn {
+                    right: 10px;
+                    bottom: 10px;
+                }
+            }
         </style>
     </head>
 
@@ -626,6 +944,12 @@
             String role = (String) session.getAttribute("role");
             NhanVien nv = (NhanVien) session.getAttribute("admin");
             String user = (String) session.getAttribute("user");
+            String keywordValue = (String) request.getAttribute("keyword");
+            String minPriceValue = (String) request.getAttribute("minPrice");
+            String maxPriceValue = (String) request.getAttribute("maxPrice");
+            String sortValue = (String) request.getAttribute("sort");
+            String selectedCategory = (String) request.getAttribute("selectedCategory");
+            List<String> categoryList = (List<String>) request.getAttribute("categoryList");
         %>
         <!-- HEADER -->
         <div class="header">
@@ -638,15 +962,28 @@
 
                 <form action="searchSanPhamServlet" method="get" class="search-box">
 
-                    <input type="text" name="keyword" class="search" placeholder="Tên / Mã sản phẩm...">
+                    <input type="text" name="keyword" class="search" placeholder="Tên / Mã sản phẩm..." value="<%= keywordValue != null ? keywordValue : ""%>">
 
-                    <input type="number" name="minPrice" placeholder="Từ giá" class="price-input">
-                    <input type="number" name="maxPrice" placeholder="Đến giá" class="price-input">
+                    <input type="number" name="minPrice" placeholder="Từ giá" class="price-input" value="<%= minPriceValue != null ? minPriceValue : ""%>">
+                    <input type="number" name="maxPrice" placeholder="Đến giá" class="price-input" value="<%= maxPriceValue != null ? maxPriceValue : ""%>">
+
+                    <select name="category" class="sort-select">
+                        <option value="">Phân loại</option>
+                        <%
+                            if (categoryList != null) {
+                                for (String category : categoryList) {
+                        %>
+                        <option value="<%= category%>" <%= category.equals(selectedCategory) ? "selected" : ""%>><%= category%></option>
+                        <%
+                                }
+                            }
+                        %>
+                    </select>
 
                     <select name="sort" class="sort-select">
-                        <option value="">Sắp xếp</option>
-                        <option value="asc">Giá ↑</option>
-                        <option value="desc">Giá ↓</option>
+                        <option value="" <%= sortValue == null || sortValue.isEmpty() ? "selected" : ""%>>Sắp xếp</option>
+                        <option value="asc" <%= "asc".equals(sortValue) ? "selected" : ""%>>Giá ↑</option>
+                        <option value="desc" <%= "desc".equals(sortValue) ? "selected" : ""%>>Giá ↓</option>
                     </select>
 
                     <button type="submit" class="btn-search">🔍</button>
@@ -670,13 +1007,10 @@
         <!-- MENU -->
         <div class="menu">
             <a href="InsertSanPham">TRANG CHỦ</a>
-            <a href="#">GIỚI THIỆU</a>
-            <a href="#">SẢN PHẨM</a>
-            <a href="#">KHUYẾN MÃI</a>
-
+            <a href="GioiThieu.jsp">GIỚI THIỆU</a>
             <!-- POPUP LIÊN HỆ -->
             <div class="contact-wrapper">
-                <a href="#">Liên hệ</a>
+                <a href="#">LIÊN HỆ </a>
 
                 <div class="contact-box">
                     <h4>📞 Thông tin liên hệ</h4>
@@ -701,9 +1035,16 @@
 
                 <ul>
                     <li><a href ="InsertSanPham">Trang chủ</a></li>
-                    <li>Sản phẩm</li>
-                    <li>Tìm theo hãng</li>
-                    <li>Khuyến mãi</li>
+                    <li><a href="InsertSanPham">Tất cả sản phẩm</a></li>
+                        <%
+                            if (categoryList != null) {
+                                for (String category : categoryList) {
+                        %>
+                    <li><a href="searchSanPhamServlet?category=<%= URLEncoder.encode(category, "UTF-8")%>"><%= category%></a></li>
+                        <%
+                                }
+                            }
+                        %>
                     <li>Liên hệ</li>
                 </ul>
             </div>
@@ -713,7 +1054,7 @@
 
                 <!-- BANNER -->
                 <div class="banner">
-                    <img src="images/banner.jpg" alt="">
+                    <img src="images/banner.svg" alt="">
                 </div>
 
 
@@ -756,7 +1097,9 @@
 
                     <div class="product-card">
                         <a href="ChiTietSanPham?maSP=<%= sp.getMaSP()%>">
-                            <img src="images/<%= sp.getHinhAnh()%>" alt="">
+                            <img src="<%= resolveImagePath(sp.getHinhAnh(), request.getContextPath())%>"
+                                 onerror="this.onerror=null;this.src='<%= getImageFallback()%>';"
+                                 alt="">
 
                             <div class="product-name"><%= sp.getTenSP()%></div>
                             <div>Loại: <%= sp.getPhanLoai()%></div>
