@@ -154,6 +154,9 @@
             .menu {
                 background: #c1121f;
                 padding: 10px 40px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
             }
 
             .menu a {
@@ -161,6 +164,51 @@
                 margin-right: 15px;
                 text-decoration: none;
                 font-weight: bold;
+            }
+
+            .chat-widget-btn {
+                position: fixed;
+                right: 22px;
+                bottom: 20px;
+                z-index: 9999;
+                border: none;
+                background: #1d4ed8;
+                color: #fff;
+                padding: 12px 16px;
+                border-radius: 999px;
+                font-size: 14px;
+                font-weight: bold;
+                cursor: pointer;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            }
+
+            .chat-widget-btn:hover {
+                background: #1e40af;
+            }
+
+            .chat-widget-panel {
+                position: fixed;
+                right: 22px;
+                bottom: 78px;
+                width: 370px;
+                height: 540px;
+                background: #fff;
+                border-radius: 14px;
+                box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+                overflow: hidden;
+                z-index: 9999;
+                display: none;
+                border: 1px solid #e5e7eb;
+            }
+
+            .chat-widget-panel.active {
+                display: block;
+            }
+
+            .chat-widget-panel iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
             }
             .product-card {
                 background: white;
@@ -638,6 +686,7 @@
                     <p>📧 shopabc@gmail.com</p>
                 </div>
             </div>
+
         </div>
         <div class="main">
             <!-- SIDEBAR -->
@@ -737,5 +786,18 @@
                 </div>
             </div>
 
+        <button type="button" id="chatWidgetBtn" class="chat-widget-btn">💬 Chat hỗ trợ</button>
+        <div id="chatWidgetPanel" class="chat-widget-panel">
+            <iframe src="Chat.jsp" title="Chatbot hỗ trợ"></iframe>
+        </div>
+
+        <script>
+            const chatWidgetBtn = document.getElementById("chatWidgetBtn");
+            const chatWidgetPanel = document.getElementById("chatWidgetPanel");
+
+            chatWidgetBtn.addEventListener("click", () => {
+                chatWidgetPanel.classList.toggle("active");
+            });
+        </script>
     </body>
 </html>

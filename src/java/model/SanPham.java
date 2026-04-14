@@ -8,6 +8,7 @@ package model;
  *
  * @author ASUS
  */
+
 public class SanPham {
     private String MaSP;
     private String TenSP;
