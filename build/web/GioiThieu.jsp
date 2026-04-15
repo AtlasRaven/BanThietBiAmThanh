@@ -38,8 +38,8 @@
                 box-shadow: var(--shadow-sm);
             }
             .logo { color: #fff; font-weight: 700; letter-spacing: 0.3px; white-space: nowrap; }
-            .search-wrapper { flex: 2; display: flex; justify-content: center; align-items: center; gap: 15px; background: rgba(255,255,255,0.12); padding: 8px 15px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2); }
-            .search-box { flex: 1; display: flex; align-items: center; background: #fff; border-radius: 999px; padding: 5px; gap: 5px; box-shadow: inset 0 0 0 1px #e2e8f0; }
+            .search-wrapper { flex: 2; display: flex; justify-content: center; align-items: center; gap: 10px; background: rgba(255,255,255,0.12); padding: 8px 15px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2); }
+            .search-box { flex: 1; display: flex; align-items: center; background: #fff; border-radius: 899px; padding: 5px; gap: 5px; box-shadow: inset 0 0 0 1px #e2e8f0; }
             .search { flex: 2; padding: 10px; border: none; outline: none; }
             .price-input { width: 90px; padding: 8px; border: none; outline: none; background: #f5f5f5; border-radius: 5px; }
             .sort-select { padding: 8px; border: none; background: #f5f5f5; border-radius: 5px; }
@@ -191,7 +191,7 @@
             <a href="InsertSanPham">TRANG CHỦ</a>
             <a href="GioiThieu.jsp">GIỚI THIỆU</a>
             <a href="InsertSanPham">PHÂN LOẠI</a>
-            <a href="#">PHÂN LOẠI</a>
+            
             <div class="contact-wrapper">
                 <a href="#">LIÊN HỆ</a>
                 <div class="contact-box">

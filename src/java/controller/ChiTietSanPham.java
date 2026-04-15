@@ -65,6 +65,7 @@ public class ChiTietSanPham extends HttpServlet {
         SanPham sp = dao.getById(maSP);
 
         request.setAttribute("sp", sp);
+        request.setAttribute("categoryList", dao.getAllCategories());
         request.getRequestDispatcher("ChiTietSanPham.jsp").forward(request, response);
     }
 

@@ -1,99 +1,48 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
 <html>
   <head>
-    <title>Chatbox</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <title>Chatbot | Dung & Hung Audio</title>
+    <link rel="stylesheet" href="chatbot.css" />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@32,400,0,0"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0,0"
     />
   </head>
   <body>
-    <div class="container">
-      <!-- App Header -->
-      <header class="app-header">
-        <h1 class="heading">Hello, there</h1>
-        <h4 class="sub-heading">How can I help you today?</h4>
-      </header>
-      <!-- Chats -->
-      <div class="chats-container"></div>
-      <!-- Prompt Input -->
-      <div class="prompt-container">
-        <div class="prompt-wrapper">
-          <form action="#" class="prompt-form">
-            <input
-              type="text"
-              placeholder="Ask Gemini"
-              class="prompt-input"
-              required
-            />
-            <div class="prompt-actions">
-              <!-- File Upload Wrapper -->
-              <div class="file-upload-wrapper">
-                <img src="#" class="file-preview" />
-                <input
-                  id="file-input"
-                  type="file"
-                  accept="image/*, .pdf, .txt, .csv"
-                  hidden
-                />
-                <button
-                  type="button"
-                  class="file-icon material-symbols-rounded"
-                >
-                  description
-                </button>
-                <button
-                  id="cancel-file-btn"
-                  type="button"
-                  class="material-symbols-rounded"
-                >
-                  close
-                </button>
-                <button
-                  id="add-file-btn"
-                  type="button"
-                  class="material-symbols-rounded"
-                >
-                  attach_file
-                </button>
-              </div>
-              <!-- Send Prompt and Stop Response Buttons -->
-              <button
-                id="stop-response-btn"
-                type="button"
-                class="material-symbols-rounded"
-              >
-                stop_circle
-              </button>
-              <button id="send-prompt-btn" class="material-symbols-rounded">
-                arrow_upward
-              </button>
-            </div>
-          </form>
-          <!-- Theme and Delete Chats Buttons -->
-          <button id="theme-toggle-btn" class="material-symbols-rounded">
-            light_mode
-          </button>
-          <button id="delete-chats-btn" class="material-symbols-rounded">
-            delete
-          </button>
+    <main class="chat-shell">
+      <header class="chat-header">
+        <div>
+          <p class="badge">Trợ lý mua hàng</p>
+          <h1>Chatbot Dung & Hung Audio</h1>
+          <p>Xin chào, shop bán thiết bị âm thanh xin vui lòng phục vụ!</p>
         </div>
-        <p class="disclaimer-text">
-          Gemini can make mistakes, so double-check it.
-        </p>
-      </div>
-    </div>
+        <div class="header-actions">
+          <button id="theme-btn" type="button" class="material-symbols-rounded">light_mode</button>
+          <button id="clear-btn" type="button" class="material-symbols-rounded">delete</button>
+        </div>
+      </header>
+
+      <section id="chat-list" class="chat-list"></section>
+
+      <form id="chat-form" class="chat-form">
+        <input
+          id="chat-input"
+          class="chat-input"
+          type="text"
+          placeholder="Nhập câu hỏi về sản phẩm, giá, vận chuyển..."
+          required
+        />
+        <button id="stop-btn" type="button" class="material-symbols-rounded">stop_circle</button>
+        <button type="submit" class="material-symbols-rounded send-btn">send</button>
+      </form>
+    </main>
+
     <script>
       window.APP_CONTEXT_PATH = "<%= request.getContextPath() %>";
     </script>
-    <script src="Script.js"></script>
+    <script src="chatbot.js"></script>
   </body>
 </html>

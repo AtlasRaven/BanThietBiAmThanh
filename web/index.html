@@ -1,15 +1,255 @@
-<!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh sách mãu website bán hàng miên phí</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-top">
+          <div class="logo">
+            <a href="#" class="logo-text">Sapo</a>
+          </div>
+          <nav class="nav">
+            <ul class="nav-list">
+              <li><a href="#" class="nav-link">Kenh Website</a></li>
+              <li><a href="#" class="nav-link">Web bán hàng</a></li>
+              <li><a href="#" class="nav-link">Web doanh nghiêp</a></li>
+              <li><a href="#" class="nav-link">Gi pháp</a></li>
+              <li><a href="#" class="nav-link">Báng giá</a></li>
+              <li><a href="#" class="nav-link">Khách hàng</a></li>
+              <li><a href="#" class="nav-link">Enterprise</a></li>
+              <li><a href="#" class="nav-link nav-plus">+</a></li>
+              <li><a href="#" class="nav-link nav-login">Dang nhap</a></li>
+              <li><a href="#" class="nav-link nav-register">Dang ký</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="header-search">
+          <div class="search-container">
+            <input type="text" class="search-input" placeholder="Tìm kiêm..." />
+            <button class="search-btn">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <div class="container">
+        <!-- Title Section -->
+        <div class="title-section">
+          <h1 class="main-title">Danh sách máu website bán hàng miên phí</h1>
+          <p class="subtitle">
+            Tìm kiêm máu phù hop vói ngành hàng kinh doanh cúa bân
+          </p>
+        </div>
+
+        <!-- Content Layout -->
+        <div class="content-layout">
+          <!-- Left Sidebar -->
+          <aside class="sidebar">
+            <h3 class="sidebar-title">Danh muc</h3>
+            <div class="category-list">
+              <label class="category-item">
+                <input type="radio" name="category" value="all" checked />
+                <span class="radio-custom"></span>
+                <span class="category-text">Tát ca</span>
+              </label>
+              <label class="category-item">
+                <input type="radio" name="category" value="thoitrang" />
+                <span class="radio-custom"></span>
+                <span class="category-text">Thi tràng - Trang súc</span>
+              </label>
+              <label class="category-item">
+                <input type="radio" name="category" value="mypham" />
+                <span class="radio-custom"></span>
+                <span class="category-text">My phâm - Làm dep</span>
+              </label>
+              <label class="category-item">
+                <input type="radio" name="category" value="congnghe" />
+                <span class="radio-custom"></span>
+                <span class="category-text">Công nghê</span>
+              </label>
+              <label class="category-item">
+                <input type="radio" name="category" value="doanhnghiep" />
+                <span class="radio-custom"></span>
+                <span class="category-text">Doanh nghiêp</span>
+              </label>
+              <label class="category-item">
+                <input type="radio" name="category" value="thethao" />
+                <span class="radio-custom"></span>
+                <span class="category-text">The thao</span>
+              </label>
+              <label class="category-item">
+                <input type="radio" name="category" value="nhacua" />
+                <span class="radio-custom"></span>
+                <span class="category-text">Nhà cúa</span>
+              </label>
+              <label class="category-item">
+                <input type="radio" name="category" value="giaitri" />
+                <span class="radio-custom"></span>
+                <span class="category-text">Giai trí</span>
+              </label>
+              <label class="category-item">
+                <input type="radio" name="category" value="thucpham" />
+                <span class="radio-custom"></span>
+                <span class="category-text">Thúc phâm</span>
+              </label>
+              <label class="category-item">
+                <input type="radio" name="category" value="suckhoe" />
+                <span class="radio-custom"></span>
+                <span class="category-text">Súc khoe</span>
+              </label>
+            </div>
+          </aside>
+
+          <!-- Right Content -->
+          <section class="content">
+            <!-- Sort Options -->
+            <div class="sort-section">
+              <span class="sort-label">Sáp xép theo:</span>
+              <div class="sort-options">
+                <button class="sort-btn active">Dúc mua nhiêu</button>
+                <button class="sort-btn">Mói nhát</button>
+              </div>
+            </div>
+
+            <!-- Template Grid -->
+            <div class="template-grid">
+              <!-- Template 1 -->
+              <div class="template-card">
+                <div class="template-image">
+                  <img
+                    src="https://via.placeholder.com/300x200/FF6B6B/FFFFFF?text=Honey+Bee+Farm"
+                    alt="Honey Bee Farm"
+                  />
+                  <span class="free-badge">Miên phí</span>
+                </div>
+                <div class="template-info">
+                  <h4 class="template-title">Honey Bee Farm</h4>
+                  <div class="template-actions">
+                    <button class="btn btn-preview">Xem thí</button>
+                    <button class="btn btn-detail">Chi tiêt</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Template 2 -->
+              <div class="template-card">
+                <div class="template-image">
+                  <img
+                    src="https://via.placeholder.com/300x200/4ECDC4/FFFFFF?text=Alena"
+                    alt="Alena"
+                  />
+                  <span class="free-badge">Miên phí</span>
+                </div>
+                <div class="template-info">
+                  <h4 class="template-title">Alena</h4>
+                  <div class="template-actions">
+                    <button class="btn btn-preview">Xem thí</button>
+                    <button class="btn btn-detail">Chi tiêt</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Template 3 -->
+              <div class="template-card">
+                <div class="template-image">
+                  <img
+                    src="https://via.placeholder.com/300x200/45B7D1/FFFFFF?text=Tattoo+Studio"
+                    alt="Tattoo Studio"
+                  />
+                  <span class="free-badge">Miên phí</span>
+                </div>
+                <div class="template-info">
+                  <h4 class="template-title">Tattoo Studio</h4>
+                  <div class="template-actions">
+                    <button class="btn btn-preview">Xem thí</button>
+                    <button class="btn btn-detail">Chi tiêt</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Template 4 -->
+              <div class="template-card">
+                <div class="template-image">
+                  <img
+                    src="https://via.placeholder.com/300x200/96CEB4/FFFFFF?text=Modern+Shop"
+                    alt="Modern Shop"
+                  />
+                  <span class="free-badge">Miên phí</span>
+                </div>
+                <div class="template-info">
+                  <h4 class="template-title">Modern Shop</h4>
+                  <div class="template-actions">
+                    <button class="btn btn-preview">Xem thí</button>
+                    <button class="btn btn-detail">Chi tiêt</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Template 5 -->
+              <div class="template-card">
+                <div class="template-image">
+                  <img
+                    src="https://via.placeholder.com/300x200/FFEAA7/000000?text=Fashion+Store"
+                    alt="Fashion Store"
+                  />
+                  <span class="free-badge">Miên phí</span>
+                </div>
+                <div class="template-info">
+                  <h4 class="template-title">Fashion Store</h4>
+                  <div class="template-actions">
+                    <button class="btn btn-preview">Xem thí</button>
+                    <button class="btn btn-detail">Chi tiêt</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Template 6 -->
+              <div class="template-card">
+                <div class="template-image">
+                  <img
+                    src="https://via.placeholder.com/300x200/DDA0DD/FFFFFF?text=Cosmetic+Shop"
+                    alt="Cosmetic Shop"
+                  />
+                  <span class="free-badge">Miên phí</span>
+                </div>
+                <div class="template-info">
+                  <h4 class="template-title">Cosmetic Shop</h4>
+                  <div class="template-actions">
+                    <button class="btn btn-preview">Xem thí</button>
+                    <button class="btn btn-detail">Chi tiêt</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <script src="js/script.js"></script>
+  </body>
 </html>

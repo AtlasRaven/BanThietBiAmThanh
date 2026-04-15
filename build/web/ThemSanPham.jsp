@@ -1,116 +1,122 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Thêm sản phẩm</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Thêm sản phẩm</title>
 
-        <style>
-            body {
-                font-family: Arial;
-                background: linear-gradient(120deg, #3498db, #8e44ad);
-                margin: 0;
-            }
+    <style>
+      body {
+        font-family: Arial;
+        background: linear-gradient(120deg, #3498db, #8e44ad);
+        margin: 0;
+      }
 
-            .form-container {
-                width: 400px;
-                margin: 60px auto;
-                background: white;
-                padding: 25px;
-                border-radius: 12px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            }
+      .form-container {
+        width: 400px;
+        margin: 60px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
 
-            h2 {
-                text-align: center;
-                margin-bottom: 20px;
-            }
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
 
-            label {
-                font-weight: bold;
-                display: block;
-                margin-top: 10px;
-            }
+      label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+      }
 
-            input, textarea {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                border-radius: 6px;
-                border: 1px solid #ccc;
-            }
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+      }
 
-            textarea {
-                resize: none;
-                height: 80px;
-            }
+      textarea {
+        resize: none;
+        height: 80px;
+      }
 
-            .btn-submit {
-                width: 100%;
-                margin-top: 15px;
-                padding: 10px;
-                border: none;
-                border-radius: 6px;
-                background: #2ecc71;
-                color: white;
-                font-size: 16px;
-                cursor: pointer;
-            }
+      .btn-submit {
+        width: 100%;
+        margin-top: 15px;
+        padding: 10px;
+        border: none;
+        border-radius: 6px;
+        background: #2ecc71;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+      }
 
-            .btn-submit:hover {
-                background: #27ae60;
-            }
+      .btn-submit:hover {
+        background: #27ae60;
+      }
 
-            .back-link {
-                display: block;
-                text-align: center;
-                margin-top: 10px;
-                text-decoration: none;
-                color: #3498db;
-            }
+      .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+        text-decoration: none;
+        color: #3498db;
+      }
 
-            .back-link:hover {
-                text-decoration: underline;
-            }
-        </style>
-    </head>
+      .back-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
 
-    <body>
+  <body>
+    <div class="form-container">
+      <h2>➕ Thêm sản phẩm</h2>
 
-        <div class="form-container">
-            <h2>➕ Thêm sản phẩm</h2>
+      <form
+        action="ThemSanPhamServlet"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <label>Mã SP</label>
+        <input type="text" name="maSP" required />
 
-            <form action="ThemSanPhamServlet" method="post" enctype="multipart/form-data">
+        <label>Tên SP</label>
+        <input type="text" name="tenSP" required />
 
-                <label>Mã SP</label>
-                <input type="text" name="maSP" required>
+        <label>Phân loại</label>
+        <input type="text" name="phanLoai" />
 
-                <label>Tên SP</label>
-                <input type="text" name="tenSP" required>
+        <label>Giá</label>
+        <input type="number" name="donGia" />
 
-                <label>Phân loại</label>
-                <input type="text" name="phanLoai">
+        <label>Số lượng</label>
+        <input type="number" name="soLuong" />
 
-                <label>Giá</label>
-                <input type="number" name="donGia">
+        <label>Mô tả</label>
+        <textarea name="moTa"></textarea>
 
-                <label>Số lượng</label>
-                <input type="number" name="soLuong">
+        <label>Hình ảnh (upload file)</label>
+        <input type="file" name="hinhAnhFile" accept="image/*" />
 
-                <label>Mô tả</label>
-                <textarea name="moTa"></textarea>
+        <label>Hoặc nhập đường dẫn/tên file ảnh</label>
+        <input
+          type="text"
+          name="hinhAnh"
+          placeholder="vd: loa.jpg hoặc images/loa.jpg"
+        />
 
-                <label>Hình ảnh (upload file)</label>
-                <input type="file" name="hinhAnhFile" accept="image/*">
+        <button type="submit" class="btn-submit">Thêm sản phẩm</button>
+      </form>
 
-                <label>Hoặc nhập đường dẫn/tên file ảnh</label>
-                <input type="text" name="hinhAnh" placeholder="vd: loa.jpg hoặc images/loa.jpg">
-
-                <button type="submit" class="btn-submit">Thêm sản phẩm</button>
-            </form>
-
-            <a href="InsertSanPham" class="back-link">⬅ Quay lại</a>
-        </div>
-
-    </body>
+      <a href="InsertSanPham" class="back-link">⬅ Quay lại</a>
+    </div>
+  </body>
 </html>

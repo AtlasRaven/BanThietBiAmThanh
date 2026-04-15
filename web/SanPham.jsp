@@ -199,7 +199,7 @@
                 bottom: 20px;
                 z-index: 9999;
                 border: none;
-                background: #1d4ed8;
+                background: linear-gradient(135deg, #64748b 0%, #475569 100%);
                 color: #fff;
                 padding: 12px 16px;
                 border-radius: 999px;
@@ -210,7 +210,7 @@
             }
 
             .chat-widget-btn:hover {
-                background: #1e40af;
+                background: linear-gradient(135deg, #525f74 0%, #334155 100%);
             }
 
             .chat-widget-panel {
@@ -683,23 +683,23 @@
 
             /* ===== Modern UI Override (giu nguyen bo cuc) ===== */
             :root {
-                --bg: #f3f6fb;
+                --bg: #eef1f5;
                 --surface: #ffffff;
-                --surface-soft: #f8faff;
-                --text: #152238;
-                --muted: #66758f;
-                --primary: #3b82f6;
-                --primary-dark: #1d4ed8;
-                --danger: #ef4444;
-                --success: #16a34a;
-                --border: #dbe4f0;
+                --surface-soft: #f5f7fa;
+                --text: #1f2937;
+                --muted: #6b7280;
+                --primary: #64748b;
+                --primary-dark: #475569;
+                --danger: #b91c1c;
+                --success: #166534;
+                --border: #d1d5db;
                 --shadow-sm: 0 6px 18px rgba(15, 23, 42, 0.08);
                 --shadow-md: 0 12px 30px rgba(15, 23, 42, 0.12);
             }
 
             body {
                 font-family: "Segoe UI", Roboto, Arial, sans-serif;
-                background: linear-gradient(180deg, #eef3ff 0%, var(--bg) 45%);
+                background: linear-gradient(180deg, #f4f6f8 0%, var(--bg) 45%);
                 color: var(--text);
             }
 
@@ -707,7 +707,7 @@
                 position: sticky;
                 top: 0;
                 z-index: 1000;
-                background: rgba(17, 24, 39, 0.92);
+                background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
                 backdrop-filter: blur(8px);
                 border-bottom: 1px solid rgba(255, 255, 255, 0.12);
                 box-shadow: var(--shadow-sm);
@@ -740,11 +740,11 @@
             }
 
             .btn-search:hover {
-                background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+                background: linear-gradient(135deg, #525f74 0%, #374151 100%);
             }
 
             .cart-icon a {
-                background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+                background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
                 border-radius: 999px;
             }
 
@@ -752,7 +752,7 @@
                 position: sticky;
                 top: 74px;
                 z-index: 999;
-                background: rgba(30, 41, 59, 0.96);
+                background: linear-gradient(135deg, #4b5563 0%, #6b7280 100%);
                 backdrop-filter: blur(6px);
                 border-bottom: 1px solid rgba(255, 255, 255, 0.12);
                 box-shadow: var(--shadow-sm);
@@ -1008,6 +1008,7 @@
         <div class="menu">
             <a href="InsertSanPham">TRANG CHỦ</a>
             <a href="GioiThieu.jsp">GIỚI THIỆU</a>
+            <a hrf="">PHÂN LOẠI</a>
             <!-- POPUP LIÊN HỆ -->
             <div class="contact-wrapper">
                 <a href="#">LIÊN HỆ </a>
